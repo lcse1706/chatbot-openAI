@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Get } from '@nestjs/common';
 
 import { AIService } from './openai.service';
 import { CompletionsDto } from './dtos/completions.dto';
@@ -8,7 +8,7 @@ export class AIController {
   constructor(private readonly aiService: AIService) {}
 
   @Post('completions')
-  askChat(@Body() completionsDto: CompletionsDto) {
+  askChatbot(@Body() completionsDto: CompletionsDto) {
     return this.aiService.askChatbot(completionsDto);
   }
 }

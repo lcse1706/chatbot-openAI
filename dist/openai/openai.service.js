@@ -11,7 +11,9 @@ const common_1 = require("@nestjs/common");
 const openai_1 = require("openai");
 let AIService = class AIService {
     constructor() {
-        this.openai = new openai_1.default();
+        this.openai = new openai_1.default({
+            apiKey: process.env.OPENAI_API_KEY,
+        });
     }
     async askChatbot(completions) {
         const completion = await this.openai.chat.completions.create({
@@ -19,15 +21,18 @@ let AIService = class AIService {
             messages: [
                 {
                     role: 'system',
-                    content: 'You are a helpful assistant with jobboard app.',
+                    content: 'You are a helpful programmer please give IT advices.',
                 },
-                {
-                    role: 'user',
-                    content: completions.message,
-                },
+                { role: 'user', content: completions.message },
             ],
         });
         console.log(completion);
+        return {
+            output: {
+                userPrompt: completions.message,
+                response: completion,
+            },
+        };
     }
 };
 exports.AIService = AIService;

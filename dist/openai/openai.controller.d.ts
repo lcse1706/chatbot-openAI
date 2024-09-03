@@ -3,5 +3,10 @@ import { CompletionsDto } from './dtos/completions.dto';
 export declare class AIController {
     private readonly aiService;
     constructor(aiService: AIService);
-    askChat(completionsDto: CompletionsDto): Promise<void>;
+    askChatbot(completionsDto: CompletionsDto): Promise<{
+        output: {
+            userPrompt: string;
+            response: import("openai/resources").ChatCompletion;
+        };
+    }>;
 }

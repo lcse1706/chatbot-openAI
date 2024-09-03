@@ -20,7 +20,7 @@ let AIController = class AIController {
     constructor(aiService) {
         this.aiService = aiService;
     }
-    askChat(completionsDto) {
+    askChatbot(completionsDto) {
         return this.aiService.askChatbot(completionsDto);
     }
 };
@@ -31,7 +31,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [completions_dto_1.CompletionsDto]),
     __metadata("design:returntype", void 0)
-], AIController.prototype, "askChat", null);
+], AIController.prototype, "askChatbot", null);
 exports.AIController = AIController = __decorate([
     (0, common_1.Controller)('ai'),
     __metadata("design:paramtypes", [openai_service_1.AIService])

@@ -6,16 +6,14 @@ import { join } from 'path';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  const globalPrefix = 'api';
-  app.setGlobalPrefix(globalPrefix);
+  // const globalPrefix = 'api';
+  // app.setGlobalPrefix(globalPrefix);
   app.enableCors();
   app.useStaticAssets(join(__dirname, '..', 'public'));
 
   const port = 3001;
 
   await app.listen(port);
-  Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
-  );
+  Logger.log(`🚀 Application is running on: http://localhost:${port}`);
 }
 bootstrap();

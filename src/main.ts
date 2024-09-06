@@ -9,7 +9,13 @@ async function bootstrap() {
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
   app.enableCors({
-    origin: ['https://jobboard-pi.vercel.app', 'http://localhost:3002'],
+    origin: [
+      'https://jobboard-pi.vercel.app',
+      'https://jobboard-pi.vercel.app/dashboard',
+      'http://localhost:3000',
+      'http://localhost:3001',
+      'http://localhost:3002',
+    ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: 'Content-Type, Accept',
   });

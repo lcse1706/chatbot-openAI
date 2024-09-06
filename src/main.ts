@@ -12,12 +12,14 @@ async function bootstrap() {
     origin: [
       'https://jobboard-pi.vercel.app',
       'https://jobboard-pi.vercel.app/dashboard',
+      'https://chatbot-open-ai-theta.vercel.app',
       'http://localhost:3000',
       'http://localhost:3001',
       'http://localhost:3002',
     ],
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    allowedHeaders: 'Content-Type, Accept',
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type', 'Accept'],
+    credentials: true,
   });
   app.useStaticAssets(join(__dirname, '..', 'public'));
 

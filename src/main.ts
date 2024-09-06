@@ -11,11 +11,11 @@ async function bootstrap() {
   app.enableCors();
   app.useStaticAssets(join(__dirname, '..', 'public'));
 
-  const port = 3001;
+  const port = process.env.PORT || 3001; //
 
   await app.listen(port);
   Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
+    `🚀 Application is running on: ${process.env.VERCEL_URL || `http://localhost:${port}`}/${globalPrefix}`
   );
 }
 bootstrap();

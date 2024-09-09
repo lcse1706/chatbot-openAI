@@ -11,10 +11,7 @@ async function bootstrap() {
   app.setGlobalPrefix(globalPrefix);
 
   app.enableCors({
-    origin: [
-      'https://jobboard-pi.vercel.app',
-      'https://chatbot-open-ai-theta.vercel.app',
-    ],
+    origin: ['*'],
     methods: ['GET', 'POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Accept'],
     credentials: true,

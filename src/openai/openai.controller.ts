@@ -10,9 +10,4 @@ export class AIController {
   askChatbot(@Body() completionsDto: CompletionsDto) {
     return this.aiService.askChatbot(completionsDto);
   }
-
-  @Options('completions')
-  handlePreflight() {
-    return {}; // Empty response for preflight check
-  }
 }

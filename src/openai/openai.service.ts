@@ -47,10 +47,11 @@ export class AIService {
   private async getDynamicFaq<T>(
     url: string,
     config?: AxiosRequestConfig
-  ): Promise<T> {
+  ): Promise<string> {
     try {
       const response: AxiosResponse<T> = await axios.get(url, config);
-      return response.data;
+      const jsonString = JSON.stringify(response.data);
+      return jsonString;
     } catch (error) {
       console.error('Error communicating with Jobboard DB:', error);
       throw new InternalServerErrorException(

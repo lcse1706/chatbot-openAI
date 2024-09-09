@@ -10,13 +10,15 @@ export class AIService {
   });
 
   async askChatbot(completions: CompletionsDto) {
-    let faq =
-      'You are a programmer assistant. You know any answer according to IT world';
+    // let faq =
+    //   'You are a programmer assistant. You know any answer according to IT world';
+
+    const faq = await this.getDynamicFaq(`${process.env.JOBBOARD_FAQ_URL}`);
 
     try {
-      if (origin === 'https://jobboard-pi.vercel.app') {
-        faq = await this.getDynamicFaq(`${process.env.JOBBOARD_FAQ_URL}`);
-      }
+      // if (origin === 'https://jobboard-pi.vercel.app') {
+      //   faq = await this.getDynamicFaq(`${process.env.JOBBOARD_FAQ_URL}`);
+      // }
 
       const completion = await this.openai.chat.completions.create({
         model: 'gpt-4o-mini',
@@ -28,6 +30,8 @@ export class AIService {
           { role: 'user', content: completions.message },
         ],
       });
+
+      console.log(completion);
 
       return {
         output: {

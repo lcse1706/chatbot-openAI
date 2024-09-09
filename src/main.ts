@@ -18,7 +18,7 @@ async function bootstrap() {
       'http://localhost:3001',
       'http://localhost:3002',
     ],
-    methods: ['GET', 'POST'],
+    methods: ['GET', 'POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Accept'],
     credentials: true,
   });

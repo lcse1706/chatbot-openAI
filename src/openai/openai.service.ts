@@ -55,6 +55,7 @@ export class AIService {
     try {
       const response: AxiosResponse<T> = await axios.get(url, config);
       const jsonString = JSON.stringify(response.data);
+      console.log('Faq loaded successfully');
       return jsonString;
     } catch (error) {
       console.error('Error communicating with Jobboard DB:', error);

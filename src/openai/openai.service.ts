@@ -10,7 +10,7 @@ export class AIService {
 
   async askChatbot(completions: CompletionsDto) {
     const faq =
-      'You are a technical support chatbot for https://jobboard-pi.vercel.app/dashboard. Here are some details about the services provided: 1. https://jobboard-pi.vercel.app/dashboard is a job board service. 2. The main features include: adding job offers, looking for a new job. 3. You can add or delete offer to favorites.';
+      'You are a technical support chatbot for Job Board App. Here are some details about the services provided: 1. Adding job offers. 2. Delete job offers. 3. Adding and deleting to/from favorites through clicking star in the corner of offer. 4. Possibility of checking location on maps from google. 5. User can log in through registering or google account.  ';
 
     try {
       const completion = await this.openai.chat.completions.create({

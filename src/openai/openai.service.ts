@@ -1,6 +1,7 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import OpenAI from 'openai';
 import { CompletionsDto } from './dtos/completions.dto';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 @Injectable()
 export class AIService {
@@ -9,10 +10,14 @@ export class AIService {
   });
 
   async askChatbot(completions: CompletionsDto) {
-    const faq =
-      'You are a technical support chatbot for Job Board App. Here are some details about the services provided: 1. Adding job offers. 2. Delete job offers. 3. Adding and deleting to/from favorites through clicking star in the corner of offer. 4. Possibility of checking location on maps from google. 5. User can log in through registering or google account.  ';
+    let faq =
+      'You are a programmer assistant. You know any answer according to IT world';
 
     try {
+      if (origin === 'https://jobboard-pi.vercel.app') {
+        faq = await this.getDynamicFaq(`${process.env.JOBBOARD_FAQ_URL}`);
+      }
+
       const completion = await this.openai.chat.completions.create({
         model: 'gpt-4o-mini',
         messages: [
@@ -35,6 +40,21 @@ export class AIService {
 
       throw new InternalServerErrorException(
         'Failed to get a response from OpenAI.'
+      );
+    }
+  }
+
+  private async getDynamicFaq<T>(
+    url: string,
+    config?: AxiosRequestConfig
+  ): Promise<T> {
+    try {
+      const response: AxiosResponse<T> = await axios.get(url, config);
+      return response.data;
+    } catch (error) {
+      console.error('Error communicating with Jobboard DB:', error);
+      throw new InternalServerErrorException(
+        'Failed to get a response from Joabboard DB.'
       );
     }
   }

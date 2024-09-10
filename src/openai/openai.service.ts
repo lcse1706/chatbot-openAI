@@ -16,9 +16,9 @@ export class AIService {
     // const faq = await this.getDynamicFaq(`${process.env.JOBBOARD_FAQ_URL}`);
 
     try {
-      if (origin === 'https://jobboard-pi.vercel.app') {
-        faq = await this.getDynamicFaq(`${process.env.JOBBOARD_FAQ_URL}`);
-      }
+      // if (origin === 'https://jobboard-pi.vercel.app') {
+      //   faq = await this.getDynamicFaq(`${process.env.JOBBOARD_FAQ_URL}`);
+      // }
 
       const completion = await this.openai.chat.completions.create({
         model: 'gpt-4o-mini',
@@ -31,7 +31,7 @@ export class AIService {
         ],
       });
 
-      console.log(completion);
+      // console.log(completion);
 
       return {
         output: {
@@ -48,20 +48,20 @@ export class AIService {
     }
   }
 
-  private async getDynamicFaq<T>(
-    url: string,
-    config?: AxiosRequestConfig
-  ): Promise<string> {
-    try {
-      const response: AxiosResponse<T> = await axios.get(url, config);
-      const jsonString = JSON.stringify(response.data);
-      console.log('Faq loaded successfully');
-      return jsonString;
-    } catch (error) {
-      console.error('Error communicating with Jobboard DB:', error);
-      throw new InternalServerErrorException(
-        'Failed to get a response from Joabboard DB.'
-      );
-    }
-  }
+  // private async getDynamicFaq<T>(
+  //   url: string,
+  //   config?: AxiosRequestConfig
+  // ): Promise<string> {
+  //   try {
+  //     const response: AxiosResponse<T> = await axios.get(url, config);
+  //     const jsonString = JSON.stringify(response.data);
+  //     console.log('Faq loaded successfully');
+  //     return jsonString;
+  //   } catch (error) {
+  //     console.error('Error communicating with Jobboard DB:', error);
+  //     throw new InternalServerErrorException(
+  //       'Failed to get a response from Joabboard DB.'
+  //     );
+  //   }
+  // }
 }

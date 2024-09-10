@@ -15,6 +15,8 @@ export class AIService {
 
     // const faq = await this.getDynamicFaq(`${process.env.JOBBOARD_FAQ_URL}`);
 
+    console.log(origin);
+
     try {
       // if (origin === 'https://jobboard-pi.vercel.app') {
       //   faq = await this.getDynamicFaq(`${process.env.JOBBOARD_FAQ_URL}`);

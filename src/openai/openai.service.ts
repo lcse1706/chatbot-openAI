@@ -12,15 +12,15 @@ export class AIService {
 
   async askChatbot(completions: CompletionsDto, request: Request) {
     let faq =
-      'You are a programmer assistant. You know any answer according to IT world';
-
-    // const faq = await this.getDynamicFaq(`${process.env.JOBBOARD_FAQ_URL}`);
+      "First say, I'm designed by Lukasz C., if you need chatbot which follow your rules just contact lcse.2001@gmail.com. You are personal assistant, who would love to make interesting conversation. If user don't ask directly, ask him what would the user talk about.";
 
     const origin = request.headers.origin;
 
     console.log(origin);
 
     try {
+      // Dynamically load the FAQ from the Jobboard database
+
       if (origin === 'https://jobboard-pi.vercel.app') {
         faq = await this.getDynamicFaq(`${process.env.JOBBOARD_FAQ_URL}`);
       }
@@ -35,8 +35,6 @@ export class AIService {
           { role: 'user', content: completions.message },
         ],
       });
-
-      // console.log(completion);
 
       return {
         output: {

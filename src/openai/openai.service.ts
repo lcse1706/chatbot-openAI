@@ -2,6 +2,7 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import OpenAI from 'openai';
 import { CompletionsDto } from './dtos/completions.dto';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { Request } from 'express';
 
 @Injectable()
 export class AIService {
@@ -9,18 +10,20 @@ export class AIService {
     apiKey: process.env.OPENAI_API_KEY,
   });
 
-  async askChatbot(completions: CompletionsDto) {
+  async askChatbot(completions: CompletionsDto, request: Request) {
     let faq =
       'You are a programmer assistant. You know any answer according to IT world';
 
     // const faq = await this.getDynamicFaq(`${process.env.JOBBOARD_FAQ_URL}`);
 
+    const origin = request.headers.origin;
+
     console.log(origin);
 
     try {
-      // if (origin === 'https://jobboard-pi.vercel.app') {
-      //   faq = await this.getDynamicFaq(`${process.env.JOBBOARD_FAQ_URL}`);
-      // }
+      if (origin === 'https://jobboard-pi.vercel.app') {
+        faq = await this.getDynamicFaq(`${process.env.JOBBOARD_FAQ_URL}`);
+      }
 
       const completion = await this.openai.chat.completions.create({
         model: 'gpt-4o-mini',
@@ -50,20 +53,20 @@ export class AIService {
     }
   }
 
-  // private async getDynamicFaq<T>(
-  //   url: string,
-  //   config?: AxiosRequestConfig
-  // ): Promise<string> {
-  //   try {
-  //     const response: AxiosResponse<T> = await axios.get(url, config);
-  //     const jsonString = JSON.stringify(response.data);
-  //     console.log('Faq loaded successfully');
-  //     return jsonString;
-  //   } catch (error) {
-  //     console.error('Error communicating with Jobboard DB:', error);
-  //     throw new InternalServerErrorException(
-  //       'Failed to get a response from Joabboard DB.'
-  //     );
-  //   }
-  // }
+  private async getDynamicFaq<T>(
+    url: string,
+    config?: AxiosRequestConfig
+  ): Promise<string> {
+    try {
+      const response: AxiosResponse<T> = await axios.get(url, config);
+      const jsonString = JSON.stringify(response.data);
+      console.log('Faq loaded successfully');
+      return jsonString;
+    } catch (error) {
+      console.error('Error communicating with Jobboard DB:', error);
+      throw new InternalServerErrorException(
+        'Failed to get a response from Joabboard DB.'
+      );
+    }
+  }
 }

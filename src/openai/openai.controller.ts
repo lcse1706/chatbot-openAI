@@ -1,13 +1,17 @@
-import { Controller, Post, Options, Body } from '@nestjs/common';
+import { Body, Controller, Post, Req } from '@nestjs/common';
 import { AIService } from './openai.service';
 import { CompletionsDto } from './dtos/completions.dto';
+import { Request } from 'express';
 
 @Controller('ai')
 export class AIController {
   constructor(private readonly aiService: AIService) {}
 
   @Post('completions')
-  askChatbot(@Body() completionsDto: CompletionsDto) {
-    return this.aiService.askChatbot(completionsDto);
+  async askChatbot(
+    @Body() completionsDto: CompletionsDto,
+    @Req() request: Request
+  ) {
+    return this.aiService.askChatbot(completionsDto, request);
   }
 }

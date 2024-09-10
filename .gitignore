@@ -4,4 +4,3 @@ dist
 
 # environment variable
 .env
-.env.local
